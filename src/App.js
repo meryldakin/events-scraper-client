@@ -4,7 +4,6 @@ import "./App.css";
 import Container from "./Container.js";
 
 // Router importing
-import { Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 
 // Redux importing
