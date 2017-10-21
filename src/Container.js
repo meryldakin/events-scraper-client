@@ -16,7 +16,6 @@ class Container extends Component {
   }
 
   render() {
-    console.log("PROPS FROM CONTAINER", this.props);
     if (this.props.events.length > 0) {
       return (
         <div>

@@ -1,10 +1,10 @@
 import React from "react";
 import { getEvents } from "../api";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom"
-import EventPage from "./EventPage.js";
+
 
 function Events(props) {
   const events = props.events.map(event => {
@@ -17,7 +17,6 @@ function Events(props) {
 
   return (
     <div>
-    {console.log("im in evets", props)}
       <ul>{events}</ul>
     </div>
   );
