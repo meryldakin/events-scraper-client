@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 // router
-import { Route } from "react-router-dom";
+import { Route, withRouter, Switch } from "react-router-dom";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 //components
 import Events from "./components/Events.js";
+import EventPage from "./components/EventPage.js";
 //helpers
 import * as actions from "./actions/index";
 
@@ -16,21 +17,32 @@ class Container extends Component {
 
   render() {
     console.log("PROPS FROM CONTAINER", this.props);
-    if (this.props.events.events.length > 0) {
+    if (this.props.events.length > 0) {
       return (
         <div>
-          <Route path="/events" component={Events} />
+          <Switch >
+            <Route exact path="/events" render={() => <Events />} />
+            <Route
+              path="/events/:id"
+              render={({ match }) => {
+                const event = this.props.events.find(
+                  event => event.id === parseInt(match.params.id)
+                );
+                return <EventPage eventPage={event}  />;
+              }}
+            />
+          </Switch>
         </div>
       );
     } else {
-      return <div> "LOADING!"</div>;
+      return <div> LOADING! </div>;
     }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    events: state.events
+    events: state.events.events
   };
 }
 
@@ -43,4 +55,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Container));
