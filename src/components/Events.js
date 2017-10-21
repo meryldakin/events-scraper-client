@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom"
 function Events(props) {
   const events = props.events.map(event => {
     return (
-      <li>
+      <li key={event.id}>
         <Link to={`/events/${event.id}`}>{event.name}</Link>
       </li>
     );
