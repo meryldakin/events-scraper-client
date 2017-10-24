@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { Switch, Route } from "react-router-dom";
 import Container from "./Container.js";
+import Login from "./components/Login.js";
 
 // Router importing
 import { withRouter } from "react-router";
@@ -17,7 +19,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Events</h1>
         </header>
-        <Container />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/" component={Container} />
+        </Switch>
       </div>
     );
   }
