@@ -22,11 +22,20 @@ export function loginUser(user_params) {
     dispatch({ type: "START_LOGIN_USER" });
     apiHelpers.login(user_params).then(data => {
       if (data) {
-        localStorage.setItem("token", user_params);
+        localStorage.setItem("token", data["token"]);
         return dispatch({ type: "LOGIN_USER", payload: data });
       } else {
         console.log("Error - bad user!");
       }
     });
+  };
+}
+
+export function fetchCurrentUser() {
+  return function(dispatch) {
+    dispatch({ type: "START_GET_USER" });
+    apiHelpers
+      .getCurrentUser()
+      .then(data => dispatch({ type: "GET_USER", payload: data }));
   };
 }
