@@ -4,17 +4,24 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 // files
-import * as actions from "../actions/index";
+import * as actions from "../actions";
 
 function EventPage(props) {
+  console.log("event page props", props);
   const handleSave = () => {
-    console.log("event page props", props.current_user_id);
-    props.saveEvent(props.eventPage.id, props.current_user_id);
+    props.saveEvent(props.eventPage.id, props.current_user);
+  };
+  const handleRemove = () => {
+    props.removeEvent(props.eventPage.id, props.current_user);
   };
 
-  const addButton = event => {
+  const toggleSaveButton = event => {
     if (props.user_events.find(e => e.id === props.eventPage.id)) {
-      return <div>No button is here</div>;
+      return (
+        <button value={event.id} onClick={handleRemove}>
+          Remove from My Events!
+        </button>
+      );
     } else {
       return (
         <button value={event.id} onClick={handleSave}>
@@ -26,10 +33,17 @@ function EventPage(props) {
 
   return (
     <div>
-      <h1> {props.eventPage.name} </h1>
+      <h1>
+        {" "}
+        {props.eventPage.month}: {props.eventPage.name}{" "}
+      </h1>
+      <p>{props.eventPage.date}</p>
+      <a href={props.eventPage.url} target="_blank">
+        Link
+      </a>
       <p> {props.eventPage.description} </p>
 
-      {addButton(props.eventPage)}
+      {toggleSaveButton(props.eventPage)}
 
       <p>
         <Link to="/events">Back to Events!</Link>
@@ -40,7 +54,7 @@ function EventPage(props) {
 
 function mapStateToProps(state) {
   return {
-    current_user_id: state.users.current_user.id,
+    current_user: state.users.current_user,
     user_events: state.users.user_events
   };
 }
@@ -48,7 +62,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      saveEvent: actions.saveEvent
+      saveEvent: actions.saveEvent,
+      removeEvent: actions.removeSavedEvent
     },
     dispatch
   );

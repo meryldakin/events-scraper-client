@@ -35,20 +35,21 @@ export function fetchEvents() {
       .then(data => dispatch({ type: "FETCH_EVENTS", payload: data }));
   };
 }
-export function saveEvent(id, user_id) {
+export function saveEvent(id, user) {
   return function(dispatch) {
     dispatch({ type: "START_SAVE_EVENT" });
     apiHelpers
-      .saveEvent(id, user_id)
+      .saveEvent(id, user)
       .then(data => dispatch({ type: "SAVE_EVENT", payload: data }));
   };
 }
 
-export function removeSavedEvent(event_id, user_id) {
+export function removeSavedEvent(event_id, user) {
+  console.log("remove event user id", user);
   return function(dispatch) {
     dispatch({ type: "START_REMOVE_EVENT" });
     apiHelpers
-      .deleteSavedEvent(event_id, user_id)
+      .deleteSavedEvent(event_id, user)
       .then(data => dispatch({ type: "REMOVE_EVENT", payload: data }));
   };
 }
