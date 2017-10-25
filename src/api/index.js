@@ -1,3 +1,5 @@
+// USERS
+
 export function login(user_params) {
   return fetch(`http://localhost:3000/login`, {
     headers: {
@@ -8,6 +10,19 @@ export function login(user_params) {
     body: JSON.stringify(user_params)
   }).then(res => res.json());
 }
+
+export function getCurrentUser() {
+  return fetch(`http://localhost:3000/session_user`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ token: localStorage.token }),
+    method: "POST"
+  }).then(res => res.json());
+}
+
+// EVENTS
 
 export function getEvents() {
   return fetch(`http://localhost:3000/events`, {
@@ -20,7 +35,6 @@ export function getEvents() {
 }
 
 export function saveEvent(event_id, current_user_id) {
-  console.log("user_id from save event", current_user_id)
   return fetch(`http://localhost:3000/users/${current_user_id}/events`, {
     headers: {
       Accept: "application/json",
@@ -31,13 +45,16 @@ export function saveEvent(event_id, current_user_id) {
   }).then(res => res.json());
 }
 
-export function getCurrentUser() {
-  return fetch(`http://localhost:3000/session_user`, {
+export function deleteSavedEvent(event_id, current_user_id) {
+  return fetch(`http://localhost:3000/remove_saved_event`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ token: localStorage.token }),
-    method: "POST"
+    body: JSON.stringify({
+      event_id: event_id,
+      user_id: current_user_id.id
+    }),
+    method: "DELETE"
   }).then(res => res.json());
 }

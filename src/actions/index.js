@@ -1,21 +1,6 @@
 import * as apiHelpers from "../api";
 
-export function fetchEvents() {
-  return function(dispatch) {
-    dispatch({ type: "START_FETCH_EVENTS" });
-    apiHelpers
-      .getEvents()
-      .then(data => dispatch({ type: "FETCH_EVENTS", payload: data }));
-  };
-}
-export function saveEvent(id, user_id) {
-  return function(dispatch) {
-    dispatch({ type: "START_SAVE_EVENT" });
-    apiHelpers
-      .saveEvent(id, user_id)
-      .then(data => dispatch({ type: "SAVE_EVENT", payload: data }));
-  };
-}
+// USERS
 
 export function loginUser(user_params) {
   return function(dispatch) {
@@ -37,5 +22,33 @@ export function fetchCurrentUser() {
     apiHelpers
       .getCurrentUser()
       .then(data => dispatch({ type: "GET_USER", payload: data }));
+  };
+}
+
+// EVENTS
+
+export function fetchEvents() {
+  return function(dispatch) {
+    dispatch({ type: "START_FETCH_EVENTS" });
+    apiHelpers
+      .getEvents()
+      .then(data => dispatch({ type: "FETCH_EVENTS", payload: data }));
+  };
+}
+export function saveEvent(id, user_id) {
+  return function(dispatch) {
+    dispatch({ type: "START_SAVE_EVENT" });
+    apiHelpers
+      .saveEvent(id, user_id)
+      .then(data => dispatch({ type: "SAVE_EVENT", payload: data }));
+  };
+}
+
+export function removeSavedEvent(event_id, user_id) {
+  return function(dispatch) {
+    dispatch({ type: "START_REMOVE_EVENT" });
+    apiHelpers
+      .deleteSavedEvent(event_id, user_id)
+      .then(data => dispatch({ type: "REMOVE_EVENT", payload: data }));
   };
 }

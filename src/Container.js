@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 //components
 import Events from "./components/Events.js";
 import EventPage from "./components/EventPage.js";
+import SavedEvents from "./components/SavedEvents.js";
 //helpers
 import * as actions from "./actions/index";
 
@@ -21,13 +22,15 @@ class Container extends Component {
       return (
         <div>
           <h1> Hi {this.props.current_user.first_name}!</h1>
-          <p>
-            {" "}
-            See a list of all the <Link to="/events">events</Link> to get
-            started!{" "}
-          </p>
+          <h3>
+            <Link to="/events">All Events</Link>
+          </h3>
+          <h3>
+            <Link to="/my-events">My Events</Link>
+          </h3>
           <Switch>
             <Route exact path="/events" render={() => <Events />} />
+            <Route path="/my-events" render={() => <SavedEvents />} />
             <Route
               path="/events/:id"
               render={({ match }) => {
