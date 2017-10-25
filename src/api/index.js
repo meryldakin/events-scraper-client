@@ -19,13 +19,14 @@ export function getEvents() {
   }).then(res => res.json());
 }
 
-export function saveEvent(id) {
-  return fetch(`http://localhost:3000/users/1/events`, {
+export function saveEvent(event_id, current_user_id) {
+  console.log("user_id from save event", current_user_id)
+  return fetch(`http://localhost:3000/users/${current_user_id}/events`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ event_id: id }),
+    body: JSON.stringify({ event_id: event_id }),
     method: "POST"
   }).then(res => res.json());
 }

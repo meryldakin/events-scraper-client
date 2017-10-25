@@ -8,11 +8,11 @@ export function fetchEvents() {
       .then(data => dispatch({ type: "FETCH_EVENTS", payload: data }));
   };
 }
-export function saveEvent(id) {
+export function saveEvent(id, user_id) {
   return function(dispatch) {
     dispatch({ type: "START_SAVE_EVENT" });
     apiHelpers
-      .saveEvent(id)
+      .saveEvent(id, user_id)
       .then(data => dispatch({ type: "SAVE_EVENT", payload: data }));
   };
 }
