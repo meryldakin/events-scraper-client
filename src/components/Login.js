@@ -1,5 +1,4 @@
 import React from "react";
-import { login } from "../api/index.js";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { loginUser } from "../actions/index";
@@ -25,9 +24,8 @@ class Login extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     if (localStorage.token) {
-      this.props.history.push("/");
+      this.props.history.push("/events");
       return <div>l</div>;
     } else {
       return (
@@ -38,9 +36,6 @@ class Login extends React.Component {
             <label>Password:</label>
             <input type="password" id="password" onChange={this.handleChange} />
             <input type="submit" />
-            {this.props.current_user
-              ? console.log(this.props.current_user)
-              : console.log("nothing yet")}
           </form>
         </div>
       );
@@ -49,7 +44,6 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("log state from mMSTP", state);
   return {
     current_user: state.users.current_user
   };

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Menu, Segment, Button } from "semantic-ui-react";
+import { Menu, Button } from "semantic-ui-react";
 
 export default class Navbar extends Component {
   state = { activeItem: "events" };

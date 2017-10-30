@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // router
-import { Route, withRouter, Switch, Link, Redirect } from "react-router-dom";
+import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -40,7 +40,7 @@ class Container extends Component {
                 path="/events/:id"
                 render={({ match }) => {
                   const event = this.props.events.find(
-                    event => event.id === parseInt(match.params.id)
+                    event => event.id === parseInt(match.params.id, 10)
                   );
                   return <EventPage eventPage={event} />;
                 }}

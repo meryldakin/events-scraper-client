@@ -45,7 +45,6 @@ export function saveEvent(id, user) {
 }
 
 export function removeSavedEvent(event_id, user) {
-  console.log("remove event user id", user);
   return function(dispatch) {
     dispatch({ type: "START_REMOVE_EVENT" });
     apiHelpers

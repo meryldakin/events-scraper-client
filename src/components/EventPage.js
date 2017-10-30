@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 //redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
