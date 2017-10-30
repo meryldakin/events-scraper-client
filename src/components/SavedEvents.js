@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 // files
 import { removeSavedEvent } from "../actions/index";
+import { Button, Segment, Grid } from "semantic-ui-react";
 
 function SavedEvents(props) {
   const handleRemoveEvent = event => {
@@ -12,12 +13,14 @@ function SavedEvents(props) {
   };
 
   const events = props.user_events.map(event => (
-    <li key={event.id}>
-      <Link to={`/events/${event.id}`}>{event.name}</Link>{" "}
-      <button value={event.id} onClick={handleRemoveEvent}>
+    <Grid.Column key={event.id}>
+      <Link to={`/events/${event.id}`}>
+        <h3>{event.name}</h3>
+      </Link>{" "}
+      <Button value={event.id} onClick={handleRemoveEvent}>
         Remove Event!
-      </button>
-    </li>
+      </Button>
+    </Grid.Column>
   ));
 
   if (props.user_events.length > 0) {
@@ -25,7 +28,9 @@ function SavedEvents(props) {
     return (
       <div>
         <h1> Saved Events </h1>
-        <ul>{events}</ul>
+        <Grid columns={3} celled>
+          {events}
+        </Grid>
       </div>
     );
   } else {

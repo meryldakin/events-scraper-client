@@ -14,8 +14,18 @@ export default class Navbar extends Component {
     this.props.location.push("/login");
   };
 
+  componentWillReceiveProps() {
+    switch (this.props.location.location.pathname) {
+      case "/events":
+        return this.setState({ activeItem: "events" });
+      case "/my-events":
+        return this.setState({ activeItem: "my-events" });
+      default:
+        return this.setState({ activeItem: null });
+    }
+  }
+
   render() {
-    console.log(this.props);
     const { activeItem } = this.state;
 
     return (
@@ -32,13 +42,6 @@ export default class Navbar extends Component {
             onClick={this.handleItemClick}
           />
           <Menu.Menu position="right">
-            <Menu.Item>
-              <Input
-                transparent
-                icon={{ name: "search", link: true }}
-                placeholder="Search users..."
-              />
-            </Menu.Item>
             <Menu.Item>
               <Button onClick={this.handleLogout}>Logout</Button>
             </Menu.Item>

@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 // files
 import * as actions from "../actions";
+//semantic
+import { Button, Segment } from "semantic-ui-react";
 
 function EventPage(props) {
   console.log("event page props", props);
@@ -18,36 +20,34 @@ function EventPage(props) {
   const toggleSaveButton = event => {
     if (props.user_events.find(e => e.id === props.eventPage.id)) {
       return (
-        <button value={event.id} onClick={handleRemove}>
-          Remove from My Events!
-        </button>
+        <Button value={event.id} onClick={handleRemove} negative={true}>
+          Remove from My Events
+        </Button>
       );
     } else {
       return (
-        <button value={event.id} onClick={handleSave}>
+        <Button value={event.id} onClick={handleSave} positive={true}>
           Save Event!
-        </button>
+        </Button>
       );
     }
   };
 
   return (
     <div>
-      <h1>
-        {" "}
-        {props.eventPage.month}: {props.eventPage.name}{" "}
-      </h1>
-      <p>{props.eventPage.date}</p>
-      <a href={props.eventPage.url} target="_blank">
-        Link
-      </a>
+      <Segment>
+        <h1>
+          <a href={props.eventPage.url} target="_blank">
+            {props.eventPage.name}
+          </a>
+        </h1>
+      </Segment>
+      <h3>When: {props.eventPage.date}</h3>
+
+      <h3>What:</h3>
       <p> {props.eventPage.description} </p>
 
       {toggleSaveButton(props.eventPage)}
-
-      <p>
-        <Link to="/events">Back to Events!</Link>
-      </p>
     </div>
   );
 }

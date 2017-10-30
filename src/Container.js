@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 //components
 import Events from "./components/Events.js";
 import EventPage from "./components/EventPage.js";
-import SavedEvents from "./components/SavedEvents.js";
+import MyEvents from "./components/MyEvents.js";
 import Navbar from "./html_elements/Navbar";
 //helpers
 import * as actions from "./actions/index";
@@ -35,7 +35,7 @@ class Container extends Component {
 
             <Switch>
               <Route exact path="/events" render={() => <Events />} />
-              <Route path="/my-events" render={() => <SavedEvents />} />
+              <Route path="/my-events" render={() => <MyEvents />} />
               <Route
                 path="/events/:id"
                 render={({ match }) => {
