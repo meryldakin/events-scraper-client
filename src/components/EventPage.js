@@ -5,7 +5,8 @@ import { bindActionCreators } from "redux";
 // files
 import * as actions from "../actions";
 //semantic
-import { Button, Segment } from "semantic-ui-react";
+import { Button, Segment, Image } from "semantic-ui-react";
+import EventImage from "../html_elements/EventImage.js"
 
 function EventPage(props) {
   console.log("event page props", props);
@@ -31,6 +32,7 @@ function EventPage(props) {
       );
     }
   };
+  console.log("From EventPage", props)
 
   return (
     <div>
@@ -42,6 +44,7 @@ function EventPage(props) {
         </h1>
       </Segment>
       <h3>When: {props.eventPage.date}</h3>
+      <EventImage image_url={props.eventPage.image_url}/>
 
       <h3>What:</h3>
       <p> {props.eventPage.description} </p>
