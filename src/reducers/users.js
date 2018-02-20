@@ -1,24 +1,13 @@
-const defaultState = { current_user: {}, user_events: [] };
+const defaultState = { current_user: { username: '' }, user_events: [], loading: false };
+
 export default function users(state = defaultState, action) {
   switch (action.type) {
-    case "START_LOGIN_USER":
+    case "START_SET_USER":
       return {
         ...state,
         loading: true
       };
-    case "LOGIN_USER":
-      return {
-        ...state,
-        current_user: action.payload.user,
-        user_events: action.payload.events,
-        loading: false
-      };
-    case "START_GET_USER":
-      return {
-        ...state,
-        loading: true
-      };
-    case "GET_USER":
+    case "SET_USER":
       return {
         ...state,
         current_user: action.payload.user,

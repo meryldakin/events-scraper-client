@@ -9,7 +9,7 @@ import { Button, Segment, Image } from "semantic-ui-react";
 import EventImage from "../html_elements/EventImage.js"
 
 function EventPage(props) {
-  console.log("event page props", props);
+  console.log("Event page props", props)
   const handleSave = () => {
     props.saveEvent(props.eventPage.id, props.current_user);
   };
@@ -32,7 +32,7 @@ function EventPage(props) {
       );
     }
   };
-  console.log("From EventPage", props)
+
 
   return (
     <div>
@@ -44,7 +44,7 @@ function EventPage(props) {
         </h1>
       </Segment>
       <h3>When: {props.eventPage.date}</h3>
-      <EventImage image_url={props.eventPage.image_url}/>
+      <EventImage image_url={props.eventPage.image_url} />
 
       <h3>What:</h3>
       <p> {props.eventPage.description} </p>
@@ -62,13 +62,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      saveEvent: actions.saveEvent,
-      removeEvent: actions.removeSavedEvent
-    },
-    dispatch
-  );
+  return {
+    saveEvent: (eventId, current_user) => dispatch(actions.saveEvent(eventId, current_user)),
+    removeEvent: (eventId, current_user) => dispatch(actions.removeSavedEvent(eventId, current_user))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);

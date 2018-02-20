@@ -1,5 +1,5 @@
 export function _pluck(array, key) {
-  return array.map(function(object) {
+  return array.map(function (object) {
     return object[key];
   });
 }

@@ -9,7 +9,7 @@ import Events from "./components/Events.js";
 import EventPage from "./components/EventPage.js";
 import MyEvents from "./components/MyEvents.js";
 import Navbar from "./html_elements/Navbar";
-import Calendar from "./html_elements/Calendar";
+
 //helpers
 import * as actions from "./actions/index";
 
@@ -25,10 +25,11 @@ class Container extends Component {
   };
 
   render() {
-    if(!this.props.events){
-      return <div>"LOADING!"</div>
+
+    if (!this.props.events) {
+      return <div>"LOADING!"</div>;
     }
-    console.log("CONTAINER PROPS", this.props)
+
     if (this.props.current_user && localStorage.getItem("token")) {
       if (this.props.events.length > 0) {
         return (
@@ -50,8 +51,7 @@ class Container extends Component {
                   return <EventPage eventPage={event} />;
                 }}
               />
-              <Route
-                path="/my-calendar" render={() => <Calendar />} />
+
             </Switch>
           </div>
         );
@@ -76,15 +76,14 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      fetchEvents: actions.fetchEvents,
-      fetchCurrentUser: actions.fetchCurrentUser
-    },
-    dispatch
-  );
+  return {
+    fetchEvents: () => dispatch(actions.fetchEvents()),
+    fetchCurrentUser: () => dispatch(actions.fetchCurrentUser())
+
+  }
 }
 
+
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Container)
+  connect(mapStateToProps, actions)(Container)
 );

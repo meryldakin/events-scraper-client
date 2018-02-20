@@ -1,72 +1,54 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import SaveButton from "../html_elements/SaveButton";
-import RemoveButton from "../html_elements/RemoveButton";
+
 import EventsByMonth from "../html_elements/EventsByMonth";
 import * as actions from "../actions";
 import * as helpers from "../helpers";
 
-function EventsList(props) {
-  const months = helpers.getMonthsFromEvents(props.events);
+class EventsList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      months: []
+    }
+  }
 
-  const eventIsSaved = eventId => {
-    return props.user_events.find(user_event => user_event.id === eventId) ? (
-      <SaveButton
-        eventId={eventId}
-        alreadySaved={true}
-        handleSave={handleSave}
-      />
-    ) : (
-      <SaveButton
-        handleSave={handleSave}
-        eventId={eventId}
-        alreadySaved={false}
-      />
-    );
-  };
+  componentDidMount() {
+    this.setState(
+      {
+        months: helpers.getMonthsFromEvents(this.props.events)
+      }
+    )
+  }
 
-  const handleSave = eventID => {
-    props.saveEvent(eventID, props.current_user);
-  };
 
-  const handleRemoveEvent = event => {
-    props.removeSavedEvent(event.target.value, props.current_user);
-  };
 
-  const savedEventToggle = event_id => {
-    return props.savedEvent ? (
-      <RemoveButton event={event_id} handleRemoveEvent={handleRemoveEvent} />
-    ) : (
-      eventIsSaved(event_id)
-    );
-  };
-
-  const formatAllMonths = months => {
+  formatAllMonths = months => {
     return helpers.sortedMonths(months).map((month, i) => {
+      console.log(month)
       return (
         <EventsByMonth
+          savedEvent={this.props.savedEvent}
           key={i}
           month={month}
-          events={props.events}
-          savedEventToggle={savedEventToggle}
+          events={this.props.events}
         />
       );
     });
   };
+  render() {
 
-  return formatAllMonths(months);
+    return this.formatAllMonths(this.state.months);
+
+  }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      saveEvent: actions.saveEvent,
-      removeSavedEvent: actions.removeSavedEvent
-    },
-    dispatch
-  );
+  return {
+    saveEvent: (eventId, currentUser) => dispatch(actions.saveEvent(eventId, currentUser)),
+    removeSavedEvent: (eventId, currentUser) => dispatch(actions.removeSavedEvent(eventId, currentUser))
+  }
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(EventsList));

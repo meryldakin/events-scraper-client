@@ -5,6 +5,7 @@ export default class Navbar extends Component {
   state = { activeItem: "events" };
 
   handleItemClick = (e, { name }) => {
+    console.log("navbar", this.state)
     this.setState({ activeItem: name });
     this.props.location.push("/" + name);
   };
@@ -14,7 +15,14 @@ export default class Navbar extends Component {
     this.props.location.push("/login");
   };
 
+  componentDidMount() {
+    console.log(this.props.location.location.pathname)
+    let myEvents = this.props.location.location.pathname.slice(1)
+    this.setState({ activeItem: myEvents });
+  }
+
   componentWillReceiveProps() {
+    console.log("navbar props", this.props)
     switch (this.props.location.location.pathname) {
       case "/events":
         return this.setState({ activeItem: "events" });
@@ -26,6 +34,7 @@ export default class Navbar extends Component {
   }
 
   render() {
+    console.log('navbar render', this.state)
     const { activeItem } = this.state;
 
     return (

@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { loginUser } from "../actions/index";
+import * as actions from "../actions/index";
 
 class Login extends React.Component {
   constructor() {
@@ -20,11 +19,16 @@ class Login extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.loginUser(this.state);
+    this.props.loginUser(this.state, this.props.history);
   };
 
   render() {
-    if (localStorage.token) {
+    if (localStorage.token && !this.props.current_user) {
+      console.log("loading props", this.props)
+      return <div> Login loading </div>
+    }
+    if (localStorage.token && this.props.current_user.username) {
+      { console.log("in login, trying to push to events") }
       this.props.history.push("/events");
       return <div>l</div>;
     } else {
@@ -50,12 +54,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      loginUser: loginUser
-    },
-    dispatch
-  );
+  return {
+    loginUser: (userState) => dispatch(actions.loginUser(userState))
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

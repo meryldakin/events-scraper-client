@@ -16,14 +16,10 @@ import reducer from "./reducers/root.js";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const middleware = [thunk];
-if (process.env.NODE_ENV !== "production") {
-  middleware.push(createLogger());
-}
 
 const store = createStore(
   reducer,
-  applyMiddleware(...middleware)
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  applyMiddleware(...middleware),
 );
 
 ReactDOM.render(
